@@ -21,6 +21,10 @@ namespace Inventaire.Engine
         public Scene(MainGame mG)
         {
             mainGame = mG;
+            if (null == Factory.Instance.mG) //moche
+            {
+                Factory.Instance.SetMainGame(mG);
+            }
         }
 
         public virtual void Load()
@@ -35,6 +39,7 @@ namespace Inventaire.Engine
             windowWidth = mainGame.GraphicsDevice.Viewport.Bounds.Width;
             windowHeight = mainGame.GraphicsDevice.Viewport.Bounds.Height;
             Debug.WriteLine("Window width = " + windowWidth + ", window height = " + windowHeight);
+
         }
 
         public virtual void Unload()

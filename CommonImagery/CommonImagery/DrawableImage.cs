@@ -54,8 +54,6 @@ namespace CommonImagery
                         (int)CurrentPosition.Y + i * Texture.Height, Texture.Width, Texture.Height), Color.White);
                 }
             }
-
-
         }
 
     }

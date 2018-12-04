@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace Inventaire.Engine
     {
         private static Factory instance = null;
         public MainGame mG;
+        
 
         public static Factory Instance
         {
@@ -28,6 +30,7 @@ namespace Inventaire.Engine
             this.mG = mG;
         }
 
+        public Texture2D LoadTexture(String assetPath) => mG.Content.Load<Texture2D>(assetPath);
 
         private Factory()
         {
@@ -36,19 +39,4 @@ namespace Inventaire.Engine
 
     }
 
-    public enum CharacterName
-    {
-        HUMAN,
-        HULK,
-        FOETUS,
-        SPIRIT
-    }
-    public enum ForegroundItemName
-    {
-        BARREL
-    }
-
-    //public class FactoryDTO {
-
-    //}
 }
