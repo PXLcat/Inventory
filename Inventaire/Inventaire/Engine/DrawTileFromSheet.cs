@@ -65,7 +65,19 @@ namespace Inventaire.Engine
             // 1ère ligne
             DrawTiled(sb, 1, 1, position, leftCornerCoordX, leftCornerCoordY);
             DrawTiled(sb, gridColumnsNb - 2, 1, new Vector2(position.X + tileWidth, position.Y), leftCornerCoordX + 1, leftCornerCoordY);
-            DrawTiled(sb, 1, 1, new Vector2(position.X + tileWidth*(gridColumnsNb-1), position.Y), leftCornerCoordX+2, leftCornerCoordY); //position pas sûre
+            DrawTiled(sb, 1, 1, new Vector2(position.X + tileWidth*(gridColumnsNb-1), position.Y), leftCornerCoordX+2, leftCornerCoordY);
+            // Lignes du millieu
+            for (int i = 1; i < gridRowsNb-1 ; i++)
+            {
+                DrawTiled(sb, 1, 1, new Vector2(position.X, position.Y + tileHeight * i),leftCornerCoordX, leftCornerCoordY+1);
+                DrawTiled(sb, gridColumnsNb - 2, 1, new Vector2(position.X + tileWidth, position.Y + tileHeight * i), leftCornerCoordX+1, leftCornerCoordY + 1);
+                DrawTiled(sb, 1, 1, new Vector2(position.X + tileWidth * (gridColumnsNb - 1), position.Y + tileHeight * i), leftCornerCoordX+2, leftCornerCoordY + 1);
+            }
+            // Dernière ligne
+            DrawTiled(sb, 1, 1, new Vector2(position.X, position.Y + tileHeight * (gridRowsNb-1)), leftCornerCoordX, leftCornerCoordY + 2);
+            DrawTiled(sb, gridColumnsNb - 2, 1, new Vector2(position.X + tileWidth, position.Y + tileHeight * (gridRowsNb - 1)), leftCornerCoordX + 1, leftCornerCoordY + 2);
+            DrawTiled(sb, 1, 1, new Vector2(position.X + tileWidth * (gridColumnsNb - 1), position.Y + tileHeight * (gridRowsNb - 1)), leftCornerCoordX + 2, leftCornerCoordY + 2);
+
         }
 
         public void DrawTiled(SpriteBatch sb, int horizontalTilesNb, int verticalTilesNb, Vector2 position,
