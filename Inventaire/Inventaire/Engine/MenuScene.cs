@@ -45,10 +45,12 @@ namespace Inventaire.Engine
         {
             mainGame.spriteBatch.Begin();
 
-            background.DrawTiled(mainGame.spriteBatch, 3, 2, new Vector2(100, 100), 0, 0);
-            background.DrawGrid(mainGame.spriteBatch, 0, 0, 4, 5, new Vector2(200, 200));
+            
+            background.DrawGrid(mainGame.spriteBatch, 9, 5, 9, 9, new Vector2(10, 10));
+            background.DrawGrid(mainGame.spriteBatch, 9, 5, 3, 9, new Vector2(586, 10));
+            
 
-            mainGame.spriteBatch.DrawString(kenPixelBlocks, "test", new Vector2(100, 100), Color.White);
+            mainGame.spriteBatch.DrawString(kenPixelBlocks, "test", new Vector2(100, 100), Color.Black);
 
             mainGame.spriteBatch.End();
 
