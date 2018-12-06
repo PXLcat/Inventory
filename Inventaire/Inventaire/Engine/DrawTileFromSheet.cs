@@ -14,12 +14,12 @@ namespace Inventaire.Engine
         private int spacing;
         private int nbRows;
         private int nbColumns; //Compter les colonnes et lignes à partir de 0
-        private int tileWidth;
-        private int tileHeight;
+        public int tileWidth;
+        public int tileHeight;
 
         Texture2D spriteSheet;
 
-        public DrawTileFromSheet(String assetPath, int nbRows, int nbColumns, int tileWidth, int tileHeight, int spacing = 0)
+        public DrawTileFromSheet(String assetPath, int nbColumns, int nbRows, int tileWidth, int tileHeight, int spacing = 0)
         {
             Load(assetPath);
             this.nbRows = nbRows;

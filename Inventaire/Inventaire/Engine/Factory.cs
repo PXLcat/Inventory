@@ -36,6 +36,14 @@ namespace Inventaire.Engine
         {
         }
 
+        public List<Character> GetCharacters()
+        {
+            List<Character> charactersList = new List<Character>();
+            charactersList.Add((new Character("Bidule", 20)));
+            charactersList[0].avatar = mG.Content.Load<Texture2D>("ciale5050cadre");
+
+            return charactersList;
+        }
 
     }
 
