@@ -29,7 +29,7 @@ namespace Inventaire.Engine
             player.Load();
 
             menuDroite = new List<Button>();
-            //menuDroite.Add(new Button(new Rectangle(300, 100, 50, 10),label:"Items"));
+            menuDroite.Add(new Button(new Rectangle(300, 100, 50, 10),label:"Items"));
 
             player.playersCharacters[0].characterStatus = Character.Status.KO;
 
@@ -58,7 +58,7 @@ namespace Inventaire.Engine
             background.DrawGrid(mainGame.spriteBatch, 9, 5, 3, 9, new Vector2(586, 10));
             
             DrawCharactersSummaries(new Vector2(50,50));
-            
+            DrawRightMenu();
 
             mainGame.spriteBatch.End();
 
@@ -94,8 +94,15 @@ namespace Inventaire.Engine
 
                 mainGame.spriteBatch.DrawString(Fonts.Instance.kenPixel16, sb.ToString(), new Vector2(textX ,basePosition.Y*(1+i)) 
                     , Color.Black);
+                
 
-
+            }
+        }
+        public void DrawRightMenu()
+        {
+            foreach (Button item in menuDroite)
+            {
+                item.Draw(mainGame.spriteBatch);
             }
         }
     }
