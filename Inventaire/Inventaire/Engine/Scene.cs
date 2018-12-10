@@ -25,6 +25,7 @@ namespace Inventaire.Engine
             {
                 Factory.Instance.SetMainGame(mG);
             }
+            Factory.Instance.Load();
         }
 
         public virtual void Load()

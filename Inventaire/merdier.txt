@@ -1,0 +1,12 @@
+                Vector2 textOutlinePos = new Vector2(500, 500);
+                mainGame.spriteBatch.DrawString(Fonts.Instance.kenPixel16, "Outline", new Vector2(textOutlinePos.X-2, textOutlinePos.Y)
+                   , Color.Black);
+                mainGame.spriteBatch.DrawString(Fonts.Instance.kenPixel16, "Outline", new Vector2(textOutlinePos.X+2, textOutlinePos.Y)
+                   , Color.Black);
+                mainGame.spriteBatch.DrawString(Fonts.Instance.kenPixel16, "Outline", new Vector2(textOutlinePos.X, textOutlinePos.Y-2)
+                   , Color.Black);
+                mainGame.spriteBatch.DrawString(Fonts.Instance.kenPixel16, "Outline", new Vector2(textOutlinePos.X, textOutlinePos.Y+2)
+                   , Color.Black);
+
+                mainGame.spriteBatch.DrawString(Fonts.Instance.kenPixel16, "Outline", new Vector2(textOutlinePos.X, textOutlinePos.Y)
+                   , Color.White);

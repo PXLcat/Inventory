@@ -11,9 +11,9 @@ namespace Inventaire.Engine
 {
     public class MenuScene : Scene
     {
-        private SpriteFont kenPixel;
         private DrawTileFromSheet background;
         public Player player;
+        public List<Button> menuDroite;
 
         public MenuScene(MainGame mG) : base(mG)
         {
@@ -24,12 +24,14 @@ namespace Inventaire.Engine
         {
             base.Load();
 
-            kenPixel = mainGame.Content.Load<SpriteFont>("KenPixel");
             background = new DrawTileFromSheet("UIpackSheet_transparent", 11, 19, 64, 64, 8); //à terme changer le compte des lignes/colonnes ?
             player = Player.Instance;
             player.Load();
 
-            player.playersCharacters[0].characterStatus = Character.Status.POISONED;
+            menuDroite = new List<Button>();
+            //menuDroite.Add(new Button(new Rectangle(300, 100, 50, 10),label:"Items"));
+
+            player.playersCharacters[0].characterStatus = Character.Status.KO;
 
         }
 
@@ -56,7 +58,7 @@ namespace Inventaire.Engine
             background.DrawGrid(mainGame.spriteBatch, 9, 5, 3, 9, new Vector2(586, 10));
             
             DrawCharactersSummaries(new Vector2(50,50));
-
+            
 
             mainGame.spriteBatch.End();
 
@@ -78,16 +80,22 @@ namespace Inventaire.Engine
 
                 if (player.playersCharacters[i].characterStatus != Character.Status.NONE)
                 {
-                    background.DrawTiled(mainGame.spriteBatch, 1, 1, new Vector2(120+basePosition.X, basePosition.Y * (i + 1) + 60 * (i + 1)), 0, 14);
-                    background.DrawTiled(mainGame.spriteBatch, 1, 1, new Vector2(120 + basePosition.X+background.tileWidth, basePosition.Y * (i + 1) + 60 * (i + 1)), 1, 14);
-                    background.DrawTiled(mainGame.spriteBatch, 1, 1, new Vector2(120 + basePosition.X + background.tileWidth*2, basePosition.Y * (i + 1) + 60 * (i + 1)), 2, 14);
+                    background.DrawTiled(mainGame.spriteBatch, 1, 1, new Vector2(textX, basePosition.Y * (i + 1) + 60 * (i + 1)), 0, 14);
+                    background.DrawTiled(mainGame.spriteBatch, 1, 1, new Vector2(textX + background.tileWidth, basePosition.Y * (i + 1) + 60 * (i + 1)), 1, 14);
+                    background.DrawTiled(mainGame.spriteBatch, 1, 1, new Vector2(textX + background.tileWidth*2, basePosition.Y * (i + 1) + 60 * (i + 1)), 2, 14);
 
-                    mainGame.spriteBatch.DrawString(kenPixel, player.playersCharacters[i].characterStatus.ToString(), new Vector2(140 + basePosition.X, basePosition.Y * (i + 1) + 78 * (i + 1)), Color.Black);
-                    //Ca prend pas en comtpe la largeur du texte du statut
+                    Vector2 buttonSize = new Vector2(background.tileWidth * 3, background.tileHeight);
+                    Vector2 fromFrameOffset = Fonts.Instance.GetOffsetToCenterText(buttonSize, Fonts.Instance.kenPixel16, player.playersCharacters[i].characterStatus.ToString());
+
+                    mainGame.spriteBatch.DrawString(Fonts.Instance.kenPixel16, player.playersCharacters[i].characterStatus.ToString(), 
+                                                    new Vector2(textX + fromFrameOffset.X, basePosition.Y * (i + 1) + 60 * (i + 1)+ fromFrameOffset.Y), Color.Black);
+  
                 }
 
-                mainGame.spriteBatch.DrawString(kenPixel, sb.ToString(), new Vector2(textX ,basePosition.Y*(1+i)) 
+                mainGame.spriteBatch.DrawString(Fonts.Instance.kenPixel16, sb.ToString(), new Vector2(textX ,basePosition.Y*(1+i)) 
                     , Color.Black);
+
+
             }
         }
     }

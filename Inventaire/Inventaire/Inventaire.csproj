@@ -41,10 +41,13 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Engine\Button.cs" />
     <Compile Include="Engine\Character.cs" />
     <Compile Include="Engine\DrawTileFromSheet.cs" />
     <Compile Include="Engine\Factory.cs" />
+    <Compile Include="Engine\Fonts.cs" />
     <Compile Include="Engine\Gamestate.cs" />
+    <Compile Include="Engine\IClickable.cs" />
     <Compile Include="Engine\MenuScene.cs" />
     <Compile Include="Engine\Player.cs" />
     <Compile Include="Engine\Scene.cs" />

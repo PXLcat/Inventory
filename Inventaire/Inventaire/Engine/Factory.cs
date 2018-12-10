@@ -45,6 +45,9 @@ namespace Inventaire.Engine
             return charactersList;
         }
 
+        public void Load() {
+            Fonts.Instance.Load(mG);
+        }
     }
 
 }
