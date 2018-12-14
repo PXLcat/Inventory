@@ -29,15 +29,17 @@ namespace Inventaire.Engine
             this.spacing = spacing;
         }
 
-        public void Load(String assetPath) {
+        public void Load(String assetPath)
+        {
             spriteSheet = Factory.Instance.LoadTexture(assetPath);
         }
 
-        public Rectangle GetSourceRectangle(int column, int row) {
+        public Rectangle GetSourceRectangle(int column, int row)
+        {
 
-            if (column>nbColumns ||row>nbRows)
+            if (column > nbColumns || row > nbRows)
             {
-                throw new Exception("Pas de tile aux coordonnées "+column+":"+row);
+                throw new Exception("Pas de tile aux coordonnées " + column + ":" + row);
             }
             Rectangle sourceRectangle = new Rectangle(
                 column * (tileWidth + spacing), row * (tileHeight + spacing), tileWidth, tileHeight);
@@ -65,16 +67,16 @@ namespace Inventaire.Engine
             // 1ère ligne
             DrawTiled(sb, 1, 1, position, leftCornerCoordX, leftCornerCoordY);
             DrawTiled(sb, gridColumnsNb - 2, 1, new Vector2(position.X + tileWidth, position.Y), leftCornerCoordX + 1, leftCornerCoordY);
-            DrawTiled(sb, 1, 1, new Vector2(position.X + tileWidth*(gridColumnsNb-1), position.Y), leftCornerCoordX+2, leftCornerCoordY);
+            DrawTiled(sb, 1, 1, new Vector2(position.X + tileWidth * (gridColumnsNb - 1), position.Y), leftCornerCoordX + 2, leftCornerCoordY);
             // Lignes du millieu
-            for (int i = 1; i < gridRowsNb-1 ; i++)
+            for (int i = 1; i < gridRowsNb - 1; i++)
             {
-                DrawTiled(sb, 1, 1, new Vector2(position.X, position.Y + tileHeight * i),leftCornerCoordX, leftCornerCoordY+1);
-                DrawTiled(sb, gridColumnsNb - 2, 1, new Vector2(position.X + tileWidth, position.Y + tileHeight * i), leftCornerCoordX+1, leftCornerCoordY + 1);
-                DrawTiled(sb, 1, 1, new Vector2(position.X + tileWidth * (gridColumnsNb - 1), position.Y + tileHeight * i), leftCornerCoordX+2, leftCornerCoordY + 1);
+                DrawTiled(sb, 1, 1, new Vector2(position.X, position.Y + tileHeight * i), leftCornerCoordX, leftCornerCoordY + 1);
+                DrawTiled(sb, gridColumnsNb - 2, 1, new Vector2(position.X + tileWidth, position.Y + tileHeight * i), leftCornerCoordX + 1, leftCornerCoordY + 1);
+                DrawTiled(sb, 1, 1, new Vector2(position.X + tileWidth * (gridColumnsNb - 1), position.Y + tileHeight * i), leftCornerCoordX + 2, leftCornerCoordY + 1);
             }
             // Dernière ligne
-            DrawTiled(sb, 1, 1, new Vector2(position.X, position.Y + tileHeight * (gridRowsNb-1)), leftCornerCoordX, leftCornerCoordY + 2);
+            DrawTiled(sb, 1, 1, new Vector2(position.X, position.Y + tileHeight * (gridRowsNb - 1)), leftCornerCoordX, leftCornerCoordY + 2);
             DrawTiled(sb, gridColumnsNb - 2, 1, new Vector2(position.X + tileWidth, position.Y + tileHeight * (gridRowsNb - 1)), leftCornerCoordX + 1, leftCornerCoordY + 2);
             DrawTiled(sb, 1, 1, new Vector2(position.X + tileWidth * (gridColumnsNb - 1), position.Y + tileHeight * (gridRowsNb - 1)), leftCornerCoordX + 2, leftCornerCoordY + 2);
 
@@ -101,5 +103,23 @@ namespace Inventaire.Engine
                 }
             }
         }
+
+        public void DrawCursor(SpriteBatch sb, Cursor cursor, Point position, bool horizontalFlip = false)
+        {
+            Rectangle sourceRectangle = GetSourceRectangle(cursor.originColumn, cursor.originRow);
+
+            if (horizontalFlip)
+            {
+                sb.Draw(spriteSheet, new Rectangle((int)position.X, (int)position.Y, tileWidth, tileHeight),
+                    sourceRectangle, Color.White, 0f, cursor.hotspot, SpriteEffects.FlipHorizontally, 0);
+            }
+            else
+            {
+                sb.Draw(spriteSheet, new Rectangle((int)position.X, (int)position.Y, tileWidth, tileHeight), 
+                    sourceRectangle, Color.White, 0f, cursor.hotspot, SpriteEffects.None, 0);
+            }
+
+        }
+
     }
 }

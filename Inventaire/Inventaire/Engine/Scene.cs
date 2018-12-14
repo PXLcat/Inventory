@@ -14,9 +14,16 @@ namespace Inventaire.Engine
     {
         protected MainGame mainGame;
         public KeyboardState oldKbState;
+        public MouseState oldMouseState;
         public int windowWidth;
         public int windowHeight;
         //public Player player;
+
+        //____Affichage de la position de la souris____
+        private MouseState mouse;
+        public String mouseText;
+        public Vector2 mouseTextPos;
+        //_____________________________________________
 
         public Scene(MainGame mG)
         {
@@ -26,6 +33,7 @@ namespace Inventaire.Engine
                 Factory.Instance.SetMainGame(mG);
             }
             Factory.Instance.Load();
+            
         }
 
         public virtual void Load()
@@ -33,8 +41,6 @@ namespace Inventaire.Engine
             //windowWidth = mainGame.GraphicsDevice.DisplayMode.Width; //Attention, c'est la taille de l'écran, pas de la fenêtre
             //windowHeight = mainGame.GraphicsDevice.DisplayMode.Height;
 
-            //factory = Factory.Instance;
-            //factory.SetMainGame(mainGame);
             //player = Player.Instance;
 
             windowWidth = mainGame.GraphicsDevice.Viewport.Bounds.Width;
@@ -48,15 +54,24 @@ namespace Inventaire.Engine
 
         }
 
-        public virtual void Update(GameTime gameTime)
-        {
+        public virtual void Update(GameTime gameTime) {
+
+#if DEBUG
+            mouse = Mouse.GetState();
+            mouseText = mouse.Position.X + ":" + mouse.Position.Y;
+            mouseTextPos = new Vector2(windowWidth - Fonts.Instance.kenPixel16.MeasureString(mouseText).X, 0);
+#endif
 
         }
 
         public virtual void Draw(GameTime gameTime)
         {
+#if DEBUG
+            mainGame.spriteBatch.DrawString(Fonts.Instance.kenPixel16, mouseText, mouseTextPos, Color.Yellow);
+#endif
 
         }
+
         public void GoToScene(MainGame mG, SceneType sT)
         {
             mG.gameState.ChangeScene(sT);

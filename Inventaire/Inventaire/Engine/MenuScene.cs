@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,10 +15,15 @@ namespace Inventaire.Engine
         private DrawTileFromSheet background;
         public Player player;
         public List<Button> menuDroite;
+        public Point cursorLocation;
+
+        public Cursor arrow;
+        public Cursor hand;
 
         public MenuScene(MainGame mG) : base(mG)
         {
 
+            
         }
 
         public override void Load()
@@ -25,13 +31,16 @@ namespace Inventaire.Engine
             base.Load();
 
             background = new DrawTileFromSheet("UIpackSheet_transparent", 11, 19, 64, 64, 8); //à terme changer le compte des lignes/colonnes ?
+            arrow = new Cursor(4, 19, new Vector2(0, 0));
+
             player = Player.Instance;
             player.Load();
 
             menuDroite = new List<Button>();
-            menuDroite.Add(new Button(new Rectangle(300, 100, 50, 10),label:"Items"));
+            menuDroite.Add(new Button(new Rectangle(600, 30, 170, 35),label:"Items"));
+            menuDroite.Add(new Button(new Rectangle(600, 70, 170, 35), label: "Equipement")); //moche le décalage à la main?
 
-            player.playersCharacters[0].characterStatus = Character.Status.KO;
+            player.playersCharacters[0].characterStatus = Character.Status.NONE;
 
         }
 
@@ -43,10 +52,16 @@ namespace Inventaire.Engine
 
         public override void Update(GameTime gameTime)
         {
-            //List<InputType> playerInputs = Input.DefineInputs(ref oldKbState);
+            List<InputType> playerInputs = Input.DefineInputs(ref oldMouseState); //on mettrait pas ça dans la classe mère et le base.Update a ?
 
+            cursorLocation = Mouse.GetState().Position;
+            foreach (Button button in menuDroite)
+            {
+                button.Update(playerInputs, cursorLocation);
+            }
 
             base.Update(gameTime);
+            
         }
 
         public override void Draw(GameTime gameTime)
@@ -57,12 +72,14 @@ namespace Inventaire.Engine
             background.DrawGrid(mainGame.spriteBatch, 9, 5, 9, 9, new Vector2(10, 10));
             background.DrawGrid(mainGame.spriteBatch, 9, 5, 3, 9, new Vector2(586, 10));
             
-            DrawCharactersSummaries(new Vector2(50,50));
-            DrawRightMenu();
+            DrawCharactersSummaries(new Vector2(50,50)); //ATTENTION CALCULS
+            DrawRightMenu(); //ATTENTION CALCULS
 
-            mainGame.spriteBatch.End();
+            background.DrawCursor(mainGame.spriteBatch, arrow, cursorLocation);
 
             base.Draw(gameTime);
+
+            mainGame.spriteBatch.End();
         }
 
         public void DrawCharactersSummaries(Vector2 basePosition) {
