@@ -15,6 +15,7 @@ namespace Inventaire.Engine
         public Texture2D textureButton;
         public String label;
         public SpriteFont font;
+        public ButtonType buttonType;
 
         public Rectangle ClickableZone { get => clickableZone; set => clickableZone = value; }
         public bool isHovered;
@@ -58,7 +59,17 @@ namespace Inventaire.Engine
 
         public void OnClick()// ou entrer menu
         {
-            throw new NotImplementedException();
+            switch (buttonType)
+            {
+                case ButtonType.ITEMS:
+                    break;
+                case ButtonType.INVENTORY:
+                    break;
+                case ButtonType.NONE:
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void OnHover()// ou sélection menu
@@ -113,7 +124,8 @@ namespace Inventaire.Engine
         public enum ButtonType
         {
             ITEMS,
-            INVENTORY
+            INVENTORY,
+            NONE
         }
     }
 }
