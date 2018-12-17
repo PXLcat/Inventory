@@ -11,29 +11,23 @@ namespace Inventaire.Engine
 {
     public class Button : IClickable
     {
-        private Rectangle clickableZone;
+        private MainGame mG;
         public Texture2D textureButton;
         public String label;
         public SpriteFont font;
         public ButtonType buttonType;
 
-        public Rectangle ClickableZone { get => clickableZone; set => clickableZone = value; }
+        public Rectangle ClickableZone { get; set; }
         public bool isHovered;
         public bool isClicked;
 
-        public Button(Rectangle clickableZone, Texture2D textureButton = null, String label = null, SpriteFont font = null) //on part du principe que
+        public Button(MainGame mG, Rectangle clickableZone, Texture2D textureButton = null, ButtonType buttonType = ButtonType.NONE,  String label = null, SpriteFont font = null) //on part du principe que
         {                                                                                          //dans le cas d'un bouton la zone cliquable est de la même taille que la texture?
             ClickableZone = clickableZone;
             this.textureButton = textureButton;
             this.label = label;
-            if (font == null)
-            {
-                this.font = Fonts.Instance.kenPixel16;
-            }
-            else
-            {
-                this.font = font;
-            }
+            this.font = font ?? Fonts.Instance.kenPixel16;
+            this.mG = mG;
 
         }
         public void Update(List<InputType> playerInputs, Point cursorLocation)
@@ -55,6 +49,10 @@ namespace Inventaire.Engine
                 isHovered = false;
                 isClicked = false;
             }
+            if (isClicked)
+            {
+                OnClick();
+            }
         }
 
         public void OnClick()// ou entrer menu
@@ -62,6 +60,7 @@ namespace Inventaire.Engine
             switch (buttonType)
             {
                 case ButtonType.ITEMS:
+                    mG.gameState.ChangeScene(Gamestate.SceneType.INVENTORY);
                     break;
                 case ButtonType.INVENTORY:
                     break;

@@ -29,7 +29,11 @@ namespace Inventaire.Engine
 
         public void Load()
         {
-            playersCharacters = Factory.Instance.GetCharacters();
+            if (playersCharacters == null)
+            {
+                playersCharacters = Factory.Instance.GetCharacters();
+            }
+            
 
         }
 

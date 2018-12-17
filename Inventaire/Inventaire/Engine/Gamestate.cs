@@ -37,6 +37,7 @@ namespace Inventaire.Engine
                     CurrentScene = new MenuScene(mainGame);
                     break;
                 case SceneType.INVENTORY:
+                    CurrentScene = new InventoryScene(mainGame);
                     break;
                 case SceneType.STATUS:
                     break;

@@ -37,8 +37,8 @@ namespace Inventaire.Engine
             player.Load();
 
             menuDroite = new List<Button>();
-            menuDroite.Add(new Button(new Rectangle(600, 30, 170, 35),label:"Items"));
-            menuDroite.Add(new Button(new Rectangle(600, 70, 170, 35), label: "Equipement")); //moche le décalage à la main?
+            menuDroite.Add(new Button(mainGame, new Rectangle(600, 30, 170, 35),buttonType: Button.ButtonType.INVENTORY, label:"Items"));
+            menuDroite.Add(new Button(mainGame, new Rectangle(600, 70, 170, 35), label: "Equipement")); //moche le décalage à la main?
 
             player.playersCharacters[0].characterStatus = Character.Status.NONE;
 
