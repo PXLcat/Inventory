@@ -37,7 +37,6 @@ namespace Inventaire.Engine
             player.Load();
 
 
-            player.playersCharacters[0].characterStatus = Character.Status.NONE;
 
         }
         public override void Update(GameTime gameTime)
@@ -50,7 +49,15 @@ namespace Inventaire.Engine
         }
         public override void Draw(GameTime gameTime)
         {
+
             mainGame.spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null);
+            background.DrawTiled(mainGame.spriteBatch, 1, 1, new Vector2(20, 10), 9, 4);
+            background.DrawTiled(mainGame.spriteBatch, 1, 1, new Vector2(20 + background.tileWidth, 10 ), 10, 4);
+            background.DrawTiled(mainGame.spriteBatch, 1, 1, new Vector2(20 + background.tileWidth * 2, 10), 11, 4);
+
+            background.DrawGrid(mainGame.spriteBatch, 9, 5, 12, 8, new Vector2(14, 75));
+            background.DrawCursor(mainGame.spriteBatch, arrow, cursorLocation);
+
             base.Draw(gameTime);
             mainGame.spriteBatch.End();
         }

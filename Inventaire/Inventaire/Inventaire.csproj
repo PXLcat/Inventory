@@ -51,6 +51,7 @@
     <Compile Include="Engine\IClickable.cs" />
     <Compile Include="Engine\Input.cs" />
     <Compile Include="Engine\InventoryScene.cs" />
+    <Compile Include="Engine\Item.cs" />
     <Compile Include="Engine\MenuScene.cs" />
     <Compile Include="Engine\Player.cs" />
     <Compile Include="Engine\Scene.cs" />

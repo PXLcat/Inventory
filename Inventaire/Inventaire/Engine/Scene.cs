@@ -67,7 +67,7 @@ namespace Inventaire.Engine
         public virtual void Draw(GameTime gameTime)
         {
 #if DEBUG
-            mainGame.spriteBatch.DrawString(Fonts.Instance.kenPixel16, mouseText, mouseTextPos, Color.Yellow);
+            mainGame.spriteBatch.DrawString(Fonts.Instance.kenPixel16, mouseText??"", mouseTextPos, Color.Yellow);
 #endif
 
         }

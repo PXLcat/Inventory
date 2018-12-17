@@ -11,6 +11,7 @@ namespace Inventaire.Engine
         private static Player instance;
         public List<Character> playersCharacters;
 
+
         public static Player Instance
         {
             get
