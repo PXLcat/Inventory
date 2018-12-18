@@ -18,6 +18,7 @@ namespace Inventaire.Engine
         public bool unique;
         public bool keyItem;
         public int itemNumber;
+        public ItemType itemType;
 
         public Item(string name, bool unique = false, bool keyItem = false, int itemNumber = 1)
         {
@@ -32,8 +33,12 @@ namespace Inventaire.Engine
 
         }
     }
-    enum ItemType
-    {
-
-    }
 }
+public enum ItemType
+{
+    POTION,
+    EQUIPEMENT,
+    KEY_ITEM,
+    DEFAULT
+}
+

@@ -42,6 +42,8 @@ namespace Inventaire.Engine
             charactersList.Add((new Character("Bidule", 20)));
             charactersList[0].avatar = mG.Content.Load<Texture2D>("ciale5050cadre");
 
+            
+
             return charactersList;
         }
 

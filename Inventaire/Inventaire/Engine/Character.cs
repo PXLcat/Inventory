@@ -14,6 +14,7 @@ namespace Inventaire.Engine
         public int maxHP;
         public Status characterStatus;
         public Texture2D avatar; //shit faut que le cadre soit à part
+        
 
         public Character(string name, int maxHP)
         {
@@ -22,7 +23,7 @@ namespace Inventaire.Engine
             currentHP = maxHP;
             this.characterStatus = Status.NONE;
         }
-
+        
         public enum Status
         {
             NONE,

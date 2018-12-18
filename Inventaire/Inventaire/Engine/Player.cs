@@ -10,7 +10,7 @@ namespace Inventaire.Engine
     {
         private static Player instance;
         public List<Character> playersCharacters;
-
+        public List<Item> inventory;
 
         public static Player Instance
         {
@@ -33,6 +33,11 @@ namespace Inventaire.Engine
             if (playersCharacters == null)
             {
                 playersCharacters = Factory.Instance.GetCharacters();
+            }
+            if (inventory == null)
+            {
+                inventory = new List<Item>();
+                inventory.Add(new Item("Potion", itemNumber: 4));
             }
             
 
