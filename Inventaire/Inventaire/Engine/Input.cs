@@ -37,18 +37,18 @@ namespace Inventaire.Engine
                 inputs.Add(InputType.MOVE_LEFT);
                 Console.Write("input move left");
             }
-            if (newKbState.IsKeyDown(Keys.Up) && newKbState != oldKbState) //TODO valable que pour des input uniques
+            if (newKbState.IsKeyDown(Keys.Up)) //TODO valable que pour des input uniques
             { //mettre à part les conditions à rallonge?
-                inputs.Add(InputType.JUMP);
-                Console.Write("input jump");
+                inputs.Add(InputType.UP);
+                Console.Write("input fly");
             }
-            //if (newKbState.IsKeyDown(Keys.Space) && newKbState != oldKbState)
-            //{
-            //    inputs.Add(InputType.ATTACK1);
-            //    Console.Write("input attack1 (space)");
-            //}
+            if (newKbState.IsKeyDown(Keys.Down)) //TODO valable que pour des input uniques
+            { //mettre à part les conditions à rallonge?
+                inputs.Add(InputType.DOWN);
+                Console.Write("input fly");
+            }
 
-      
+
             if (newKbState.IsKeyDown(Keys.Enter) && newKbState != oldKbState)
             {
                 inputs.Add(InputType.START);
@@ -90,6 +90,8 @@ namespace Inventaire.Engine
         ATTACK1,
         START,
         RETURNTOMENU,
+        UP,
+        DOWN,
         LEFT_CLICK
     }
     public enum InputMethod

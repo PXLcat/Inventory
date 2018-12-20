@@ -41,9 +41,11 @@ namespace Inventaire.Engine
             List<Character> charactersList = new List<Character>();
             charactersList.Add((new Character("Bidule", 20)));
             charactersList[0].avatar = mG.Content.Load<Texture2D>("ciale5050cadre");
-
-            
-
+            charactersList.Add((new Character("Truc", 30)));
+            charactersList[1].avatar = mG.Content.Load<Texture2D>("machin2_5050cadre");
+            charactersList[1].characterStatus = Character.Status.PARALYSED;
+            charactersList.Add((new Character("Chouette", 30)));
+            charactersList[2].avatar = mG.Content.Load<Texture2D>("machin2_5050cadre");
             return charactersList;
         }
 

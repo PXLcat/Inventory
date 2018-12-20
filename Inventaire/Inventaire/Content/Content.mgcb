@@ -32,6 +32,18 @@
 /processorParam:TextureFormat=Compressed
 /build:KenPixelBlocks.spritefont;KenPixel.spritefont
 
+#begin machin2_5050cadre.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:machin2_5050cadre.png
+
 #begin UIpackSheet_transparent.png
 /importer:TextureImporter
 /processor:TextureProcessor

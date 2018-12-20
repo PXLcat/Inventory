@@ -21,6 +21,12 @@ namespace Inventaire.Engine
         public bool isHovered;
         public bool isClicked;
 
+#if DEBUG
+        public Color[] debugTextureColor;
+        Texture2D hitboxTexture;
+#endif
+
+
         public Button(MainGame mG, Rectangle clickableZone, Texture2D textureButton = null, ButtonType buttonType = ButtonType.NONE,  String label = null, SpriteFont font = null) //on part du principe que
         {                                                                                          //dans le cas d'un bouton la zone cliquable est de la même taille que la texture?
             ClickableZone = clickableZone;
@@ -28,6 +34,11 @@ namespace Inventaire.Engine
             this.label = label;
             this.font = font ?? Fonts.Instance.kenPixel16;
             this.mG = mG;
+
+#if DEBUG
+            hitboxTexture = new Texture2D(mG.spriteBatch.GraphicsDevice, 1, 1);
+            hitboxTexture.SetData(new[] { Color.Red });
+#endif
 
         }
         public void Update(List<InputType> playerInputs, Point cursorLocation)
@@ -78,8 +89,6 @@ namespace Inventaire.Engine
         public void Draw(SpriteBatch sb)
         {
 #if DEBUG
-            Texture2D hitboxTexture = new Texture2D(sb.GraphicsDevice, 1, 1);
-            hitboxTexture.SetData(new[] { Color.Red });
             sb.Draw(hitboxTexture, ClickableZone, Color.White * 0.5f);
 #endif
             if (textureButton != null)

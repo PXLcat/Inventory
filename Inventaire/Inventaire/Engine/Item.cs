@@ -15,14 +15,16 @@ namespace Inventaire.Engine
         public int originRow;
 
         public String name;
+        public String description;
         public bool unique;
         public bool keyItem;
         public int itemNumber;
         public ItemType itemType;
 
-        public Item(string name, bool unique = false, bool keyItem = false, int itemNumber = 1)
+        public Item(string name, string description, bool unique = false, bool keyItem = false, int itemNumber = 1)
         {
             this.name = name;
+            this.description = description;
             this.unique = unique;
             this.keyItem = keyItem;
             this.itemNumber = itemNumber;

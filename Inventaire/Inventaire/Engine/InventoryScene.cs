@@ -28,6 +28,11 @@ namespace Inventaire.Engine
 
         public int menuSelected; //1 = Items , 2 = Key Items 
 
+        public Vector2 itemsListOrigin;
+
+        public int selectedItem;
+
+
         public InventoryScene(MainGame mG) : base(mG)
         {
 
@@ -50,19 +55,45 @@ namespace Inventaire.Engine
             category1TitleOrigin = new Vector2(25,5);
             category2TitleOrigin = new Vector2(450,5);
 
+            itemsListOrigin = new Vector2(50, 110);
+
             menuSelected = 1;
+            selectedItem = 0;
 
         }
         public override void Update(GameTime gameTime)
         {
             List<InputType> playerInputs = Input.DefineInputs(ref oldMouseState); //on mettrait pas ça dans la classe mère et le base.Update a ?
-
+            if (playerInputs.Contains(InputType.DOWN))
+            {
+                if (selectedItem == player.inventory.Count)
+                {
+                    selectedItem=0;
+                }
+                else
+                {
+                    selectedItem++;
+                }
+            }
+            if (playerInputs.Contains(InputType.UP))//conflit si les deux à la fois?
+            {
+                if (selectedItem == 0)
+                {
+                    selectedItem = player.inventory.Count;
+                }
+                else
+                {
+                    selectedItem--;
+                }
+            }
             cursorLocation = Mouse.GetState().Position;
 
             base.Update(gameTime);
         }
         public override void Draw(GameTime gameTime)
         {
+            //___FOND________________
+
             mainGame.spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null);
 
             background.DrawTiled(mainGame.spriteBatch, 1, 1, new Vector2(category1TitleOrigin.X, category1TitleOrigin.Y), 
@@ -84,6 +115,28 @@ namespace Inventaire.Engine
             mainGame.spriteBatch.DrawString(Fonts.Instance.kenPixel16, "Key Items", new Vector2(category2TitleOrigin.X + 20, category2TitleOrigin.Y + (menuSelected == 2 ? 20 : 10)), Color.Black);
 
             background.DrawGrid(mainGame.spriteBatch, 9, 5, 12, 8, new Vector2(14, 75));
+            //______________________
+
+            for (int i = 0; i < player.inventory.Count; i++)
+            { //TODO décalage bas droite pour item sélectionné (ou autre effet graphique onHover) 
+
+                if (player.inventory[i].itemNumber>1)
+                {
+                    mainGame.spriteBatch.DrawString(Fonts.Instance.kenPixel16, "x" + player.inventory[i].itemNumber.ToString(),
+                        new Vector2(itemsListOrigin.X, itemsListOrigin.Y + i * 35 + (i > selectedItem ?30:0)), Color.Black);
+                }
+                
+                mainGame.spriteBatch.DrawString(Fonts.Instance.kenPixel16, player.inventory[i].name, 
+                    new Vector2(itemsListOrigin.X+65 , itemsListOrigin.Y + i * 35 + (i > selectedItem ? 30 : 0)), Color.Black);
+                if (selectedItem == i)
+                {
+                    mainGame.spriteBatch.DrawString(Fonts.Instance.kenPixel16, player.inventory[i].description, 
+                        new Vector2(itemsListOrigin.X + 100, itemsListOrigin.Y + i * 50), Color.Gray);
+                }
+            }
+
+
+ 
             background.DrawCursor(mainGame.spriteBatch, arrow, cursorLocation);
 
             base.Draw(gameTime);

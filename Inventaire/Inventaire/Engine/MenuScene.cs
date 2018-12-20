@@ -40,7 +40,6 @@ namespace Inventaire.Engine
             menuDroite.Add(new Button(mainGame, new Rectangle(600, 30, 170, 35),buttonType: Button.ButtonType.INVENTORY, label:"Items"));
             menuDroite.Add(new Button(mainGame, new Rectangle(600, 70, 170, 35), label: "Equipement")); //moche le décalage à la main?
 
-            player.playersCharacters[0].characterStatus = Character.Status.NONE;
 
         }
 
@@ -86,8 +85,9 @@ namespace Inventaire.Engine
             int textX = (int)basePosition.X + 120; //taille de l'avatar + des miettes
             for (int i = 0; i < player.playersCharacters.Count; i++)
             {
-                mainGame.spriteBatch.Draw(player.playersCharacters[i].avatar, basePosition*(i+1),null, Color.White,0f,Vector2.Zero,2,SpriteEffects.None, 1);
-                StringBuilder sb = new StringBuilder();
+                Vector2 avatarPosition = new Vector2(basePosition.X, basePosition.Y + i*180);
+                mainGame.spriteBatch.Draw(player.playersCharacters[i].avatar, avatarPosition, null, Color.White,0f,Vector2.Zero,2,SpriteEffects.None, 1);
+                StringBuilder sb = new StringBuilder(); //TODO le sb serait pas à faire dans le Update?
                 sb.AppendLine(player.playersCharacters[i].name);
                 sb.Append("  "); //La tabulation ("\t") ne marche pas ?!
                 sb.Append(player.playersCharacters[i].currentHP);
@@ -97,19 +97,19 @@ namespace Inventaire.Engine
 
                 if (player.playersCharacters[i].characterStatus != Character.Status.NONE)
                 {
-                    background.DrawTiled(mainGame.spriteBatch, 1, 1, new Vector2(textX, basePosition.Y * (i + 1) + 60 * (i + 1)), 0, 14);
-                    background.DrawTiled(mainGame.spriteBatch, 1, 1, new Vector2(textX + background.tileWidth, basePosition.Y * (i + 1) + 60 * (i + 1)), 1, 14);
-                    background.DrawTiled(mainGame.spriteBatch, 1, 1, new Vector2(textX + background.tileWidth*2, basePosition.Y * (i + 1) + 60 * (i + 1)), 2, 14);
+                    background.DrawTiled(mainGame.spriteBatch, 1, 1, new Vector2(textX, (basePosition.Y + i * 180) + 60), 0, 14);
+                    background.DrawTiled(mainGame.spriteBatch, 1, 1, new Vector2(textX + background.tileWidth, (basePosition.Y + i * 180) + 60), 1, 14);
+                    background.DrawTiled(mainGame.spriteBatch, 1, 1, new Vector2(textX + background.tileWidth*2, (basePosition.Y + i * 180) + 60 ), 2, 14);
 
                     Vector2 buttonSize = new Vector2(background.tileWidth * 3, background.tileHeight);
                     Vector2 fromFrameOffset = Fonts.Instance.GetOffsetToCenterText(buttonSize, Fonts.Instance.kenPixel16, player.playersCharacters[i].characterStatus.ToString());
 
                     mainGame.spriteBatch.DrawString(Fonts.Instance.kenPixel16, player.playersCharacters[i].characterStatus.ToString(), 
-                                                    new Vector2(textX + fromFrameOffset.X, basePosition.Y * (i + 1) + 60 * (i + 1)+ fromFrameOffset.Y), Color.Black);
+                                                    new Vector2(textX + fromFrameOffset.X, (basePosition.Y + i * 180) + 60 + fromFrameOffset.Y), Color.Black);
   
                 }
 
-                mainGame.spriteBatch.DrawString(Fonts.Instance.kenPixel16, sb.ToString(), new Vector2(textX ,basePosition.Y*(1+i)) 
+                mainGame.spriteBatch.DrawString(Fonts.Instance.kenPixel16, sb.ToString(), new Vector2(textX , (basePosition.Y + i * 180)) 
                     , Color.Black);
                 
 
