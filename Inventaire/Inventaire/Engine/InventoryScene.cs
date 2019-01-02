@@ -14,6 +14,7 @@ namespace Inventaire.Engine
     {
         private DrawTileFromSheet background;
         public Player player;
+        List<Item> selectedInventory;
 
         public Point cursorLocation;
 
@@ -58,6 +59,7 @@ namespace Inventaire.Engine
             itemsListOrigin = new Vector2(50, 110);
 
             menuSelected = 1;
+            selectedInventory = player.inventory; //on passe le chemin ou la valeur? ça ira quand on modifiera le contenu de l'inventaire?
             selectedItem = 0;
 
         }
@@ -66,7 +68,7 @@ namespace Inventaire.Engine
             List<InputType> playerInputs = Input.DefineInputs(ref oldMouseState, ref oldKbState); //on mettrait pas ça dans la classe mère et le base.Update a ?
             if (playerInputs.Contains(InputType.SINGLE_DOWN))
             {
-                if (selectedItem == player.inventory.Count-1)
+                if (selectedItem == selectedInventory.Count-1)
                 {
                     selectedItem=0;
                 }
@@ -79,13 +81,30 @@ namespace Inventaire.Engine
             {
                 if (selectedItem == 0)
                 {
-                    selectedItem = player.inventory.Count-1;
+                    selectedItem = selectedInventory.Count-1;
                 }
                 else
                 {
                     selectedItem--;
                 }
             }
+            if (playerInputs.Contains(InputType.SINGLE_RIGHT)|| playerInputs.Contains(InputType.SINGLE_LEFT))
+            {
+                if (menuSelected == 1)
+                {
+                    menuSelected = 2;
+                    selectedInventory = player.keyItemsInventory;//un peu moche
+                    selectedItem = 0;
+                }
+                else
+                {
+                    menuSelected = 1;
+                    selectedInventory = player.inventory;
+                    selectedItem = 0;
+                }
+            }
+
+
             cursorLocation = Mouse.GetState().Position;
 
             base.Update(gameTime);
@@ -96,7 +115,7 @@ namespace Inventaire.Engine
 
             mainGame.spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null);
 
-            background.DrawTiled(mainGame.spriteBatch, 1, 1, new Vector2(category1TitleOrigin.X, category1TitleOrigin.Y), 
+            background.DrawTiled(mainGame.spriteBatch, 1, 1, new Vector2(category1TitleOrigin.X, category1TitleOrigin.Y), //refaire ce bloc avec selectedInventory
                 9, menuSelected==1?selectedMenuOrigin.Y:nonSelectedMenuOrigin.Y);
             background.DrawTiled(mainGame.spriteBatch, 2, 1, new Vector2(category1TitleOrigin.X + background.tileWidth, category1TitleOrigin.Y), 
                 10, menuSelected == 1 ? selectedMenuOrigin.Y : nonSelectedMenuOrigin.Y);
@@ -117,21 +136,24 @@ namespace Inventaire.Engine
             background.DrawGrid(mainGame.spriteBatch, 9, 5, 12, 8, new Vector2(14, 75));
             //______________________
 
-            for (int i = 0; i < player.inventory.Count; i++)
-            { //TODO décalage bas droite pour item sélectionné (ou autre effet graphique onHover) 
+            for (int i = 0; i < selectedInventory.Count; i++)
+            { 
 
-                if (player.inventory[i].itemNumber>1)
+                if (selectedInventory[i].itemNumber>1)
                 {
-                    mainGame.spriteBatch.DrawString(Fonts.Instance.kenPixel16, "x" + player.inventory[i].itemNumber.ToString(),
+                    mainGame.spriteBatch.DrawString(Fonts.Instance.kenPixel16, "x" + selectedInventory[i].itemNumber.ToString(),
                         new Vector2(itemsListOrigin.X, itemsListOrigin.Y + i * 35 + (i > selectedItem ?30:0)), Color.Black);
                 }
-                
-                mainGame.spriteBatch.DrawString(Fonts.Instance.kenPixel16, player.inventory[i].name, 
-                    new Vector2(itemsListOrigin.X+65 , itemsListOrigin.Y + i * 35 + (i > selectedItem ? 30 : 0)), Color.Black);
+                Vector2 itemNamePosition = new Vector2(itemsListOrigin.X + 65, itemsListOrigin.Y + i * 35 + (i > selectedItem ? 30 : 0));
+                mainGame.spriteBatch.DrawString(Fonts.Instance.kenPixel16, selectedInventory[i].name, 
+                    itemNamePosition, Color.Black); //new dans Draw pas bien
+
                 if (selectedItem == i)
                 {
-                    mainGame.spriteBatch.DrawString(Fonts.Instance.kenPixel16, player.inventory[i].description, 
-                        new Vector2(itemsListOrigin.X + 100, itemsListOrigin.Y + i * 50 + 30), Color.Gray);
+                    Fonts.Instance.DrawOutlined(itemNamePosition, Fonts.Instance.kenPixel16, selectedInventory[i].name);
+
+                    mainGame.spriteBatch.DrawString(Fonts.Instance.kenPixel16, selectedInventory[i].description, 
+                        new Vector2(itemsListOrigin.X + 100, itemsListOrigin.Y + i * 35 + 30), Color.Gray);
                 }
             }
 
@@ -142,5 +164,6 @@ namespace Inventaire.Engine
             base.Draw(gameTime);
             mainGame.spriteBatch.End();
         }
+
     }
 }

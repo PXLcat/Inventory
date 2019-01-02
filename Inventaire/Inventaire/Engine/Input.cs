@@ -52,26 +52,48 @@ namespace Inventaire.Engine
         {
             List<InputType> inputs = new List<InputType>();
             KeyboardState newKbState = Keyboard.GetState();
-            if (newKbState.IsKeyDown(Keys.Right))
+            if (newKbState.IsKeyDown(Keys.Up)) //TODO mettre left et right sur un pied d'égalité
             {
-                inputs.Add(InputType.MOVE_RIGHT);
-                Console.Write("input move right");
+                inputs.Add(InputType.LEFT);
+                Console.Write("input up");
+            }
+            if (newKbState.IsKeyDown(Keys.Down))
+            {
+                inputs.Add(InputType.RIGHT);
+                Console.Write("input down");
             }
             if (newKbState.IsKeyDown(Keys.Left)) //TODO mettre left et right sur un pied d'égalité
             {
-                inputs.Add(InputType.MOVE_LEFT);
-                Console.Write("input move left");
+                inputs.Add(InputType.LEFT);
+                Console.Write("input left");
             }
-            if (newKbState.IsKeyDown(Keys.Up) && newKbState != oldKbState) 
+            if (newKbState.IsKeyDown(Keys.Right))
+            {
+                inputs.Add(InputType.RIGHT);
+                Console.Write("input right");
+            }
+            if (newKbState.IsKeyDown(Keys.Up) && newKbState != oldKbState)
             { //mettre à part les conditions à rallonge?
                 inputs.Add(InputType.SINGLE_UP);
                 Console.Write("input single up");
             }
-            if (newKbState.IsKeyDown(Keys.Down) && newKbState != oldKbState) 
+            if (newKbState.IsKeyDown(Keys.Down) && newKbState != oldKbState)
             { //mettre à part les conditions à rallonge?
                 inputs.Add(InputType.SINGLE_DOWN);
                 Console.Write("input single down");
             }
+            if (newKbState.IsKeyDown(Keys.Left) && newKbState != oldKbState) //TODO mettre left et right sur un pied d'égalité
+            {
+                inputs.Add(InputType.SINGLE_LEFT);
+                Console.Write("input single left");
+            }
+            if (newKbState.IsKeyDown(Keys.Right) && newKbState != oldKbState)
+            {
+                inputs.Add(InputType.SINGLE_RIGHT);
+                Console.Write("input single right");
+            }
+
+
 
 
             if (newKbState.IsKeyDown(Keys.Enter) && newKbState != oldKbState)
@@ -107,16 +129,21 @@ namespace Inventaire.Engine
     public enum InputType
     {
         //TODO raccrocher à des actions clavier pour Player, et comportements pour NPC?
-        DO_NOTHING,
-        RESET_POSE,
-        MOVE_LEFT,
-        MOVE_RIGHT,
+
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT,
+        SINGLE_UP,
+        SINGLE_DOWN,
+        SINGLE_LEFT,
+        SINGLE_RIGHT,
         JUMP, // fall n'est pas un "input"
         ATTACK1,
         START,
         RETURNTOMENU,
-        SINGLE_UP,
-        SINGLE_DOWN,
+        DO_NOTHING,
+        RESET_POSE,
         LEFT_CLICK
     }
     public enum InputMethod

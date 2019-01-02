@@ -101,26 +101,15 @@ namespace Inventaire.Engine
             {
                 if (isHovered)
                 {
-                    Vector2 textOutlinePos = new Vector2(ClickableZone.X + 5, ClickableZone.Y + 3);
-                    sb.DrawString(font, label, new Vector2(textOutlinePos.X - 1, textOutlinePos.Y)
-                       , Color.Black);
-                    sb.DrawString(font, label, new Vector2(textOutlinePos.X + 1, textOutlinePos.Y)
-                       , Color.Black);
-                    sb.DrawString(font, label, new Vector2(textOutlinePos.X, textOutlinePos.Y - 1)
-                       , Color.Black);
-                    sb.DrawString(font, label, new Vector2(textOutlinePos.X, textOutlinePos.Y + 1)
-                       , Color.Black);
+                    Vector2 textOutlinePos = new Vector2(ClickableZone.X + 5, ClickableZone.Y + 3); //new dans un Draw, c'est mal!
+                    Fonts.Instance.DrawOutlined(textOutlinePos, Fonts.Instance.kenPixel16, label);
 
                     if (isClicked)
                     {
                         sb.DrawString(font, label, new Vector2(textOutlinePos.X, textOutlinePos.Y)
                            , Color.White);
                     }
-                    else
-                    {
-                        sb.DrawString(font, label, new Vector2(textOutlinePos.X, textOutlinePos.Y)
-                           , Color.Gray);
-                    }
+
 
                 }
                 else

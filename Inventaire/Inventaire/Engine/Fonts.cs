@@ -44,5 +44,19 @@ namespace Inventaire.Engine
 
             return result;
         }
+
+        public void DrawOutlined(Vector2 position, SpriteFont font, String texte)
+        {
+            mG.spriteBatch.DrawString(font, texte, new Vector2(position.X - 1, position.Y)
+               , Color.Black);
+            mG.spriteBatch.DrawString(font, texte, new Vector2(position.X + 1, position.Y)
+               , Color.Black);
+            mG.spriteBatch.DrawString(font, texte, new Vector2(position.X, position.Y - 1)
+               , Color.Black);
+            mG.spriteBatch.DrawString(font, texte, new Vector2(position.X, position.Y + 1)
+               , Color.Black);
+
+            mG.spriteBatch.DrawString(font, texte, position, Color.Gray);
+        }
     }
 }
