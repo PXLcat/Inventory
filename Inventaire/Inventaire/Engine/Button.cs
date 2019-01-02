@@ -36,11 +36,13 @@ namespace Inventaire.Engine
             this.mG = mG;
 
 #if DEBUG
-            hitboxTexture = new Texture2D(mG.spriteBatch.GraphicsDevice, 1, 1);
+            mG.spriteBatch = new SpriteBatch(mG.GraphicsDevice);
+            hitboxTexture = new Texture2D(this.mG.spriteBatch.GraphicsDevice, 1, 1);
             hitboxTexture.SetData(new[] { Color.Red });
 #endif
-
         }
+
+
         public void Update(List<InputType> playerInputs, Point cursorLocation)
         {//faudra vraiment apprendre à utiliser les eventHandler un jour
             if (ClickableZone.Contains(cursorLocation))

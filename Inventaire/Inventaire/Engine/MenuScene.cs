@@ -40,7 +40,6 @@ namespace Inventaire.Engine
             menuDroite.Add(new Button(mainGame, new Rectangle(600, 30, 170, 35),buttonType: Button.ButtonType.INVENTORY, label:"Items"));
             menuDroite.Add(new Button(mainGame, new Rectangle(600, 70, 170, 35), label: "Equipement")); //moche le décalage à la main?
 
-
         }
 
         public override void Unload()
