@@ -63,10 +63,10 @@ namespace Inventaire.Engine
         }
         public override void Update(GameTime gameTime)
         {
-            List<InputType> playerInputs = Input.DefineInputs(ref oldMouseState); //on mettrait pas ça dans la classe mère et le base.Update a ?
-            if (playerInputs.Contains(InputType.DOWN))
+            List<InputType> playerInputs = Input.DefineInputs(ref oldMouseState, ref oldKbState); //on mettrait pas ça dans la classe mère et le base.Update a ?
+            if (playerInputs.Contains(InputType.SINGLE_DOWN))
             {
-                if (selectedItem == player.inventory.Count)
+                if (selectedItem == player.inventory.Count-1)
                 {
                     selectedItem=0;
                 }
@@ -75,11 +75,11 @@ namespace Inventaire.Engine
                     selectedItem++;
                 }
             }
-            if (playerInputs.Contains(InputType.UP))//conflit si les deux à la fois?
+            if (playerInputs.Contains(InputType.SINGLE_UP))//conflit si les deux à la fois?
             {
                 if (selectedItem == 0)
                 {
-                    selectedItem = player.inventory.Count;
+                    selectedItem = player.inventory.Count-1;
                 }
                 else
                 {
@@ -131,7 +131,7 @@ namespace Inventaire.Engine
                 if (selectedItem == i)
                 {
                     mainGame.spriteBatch.DrawString(Fonts.Instance.kenPixel16, player.inventory[i].description, 
-                        new Vector2(itemsListOrigin.X + 100, itemsListOrigin.Y + i * 50), Color.Gray);
+                        new Vector2(itemsListOrigin.X + 100, itemsListOrigin.Y + i * 50 + 30), Color.Gray);
                 }
             }
 

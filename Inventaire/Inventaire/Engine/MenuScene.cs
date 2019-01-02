@@ -50,7 +50,7 @@ namespace Inventaire.Engine
 
         public override void Update(GameTime gameTime)
         {
-            List<InputType> playerInputs = Input.DefineInputs(ref oldMouseState); //on mettrait pas ça dans la classe mère et le base.Update a ?
+            List<InputType> playerInputs = Input.DefineInputs(ref oldMouseState,ref oldKbState); //on mettrait pas ça dans la classe mère et le base.Update avant ?
 
             cursorLocation = Mouse.GetState().Position;
             foreach (Button button in menuDroite)

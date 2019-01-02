@@ -9,6 +9,26 @@ namespace Inventaire.Engine
 {
     public class Input 
     {
+        /// <summary>
+        /// Pour prendre en compte les input clavier et souris.
+        /// </summary>
+        /// <param name="oldMouseState"></param>
+        /// <param name="oldKbState"></param>
+        /// <returns></returns>
+        public static List<InputType> DefineInputs(ref MouseState oldMouseState, ref KeyboardState oldKbState)
+        {
+            List<InputType> inputs = new List<InputType>();
+            inputs.AddRange(DefineInputs(ref oldMouseState));
+            inputs.AddRange(DefineInputs(ref oldKbState));
+
+            return inputs;
+        }
+
+        /// <summary>
+        /// Pour prendre en compte les input souris uniquement.
+        /// </summary>
+        /// <param name="oldMouseState"></param>
+        /// <returns></returns>
         public static List<InputType> DefineInputs(ref MouseState oldMouseState)
         {
             List<InputType> inputs = new List<InputType>();
@@ -23,6 +43,11 @@ namespace Inventaire.Engine
             return inputs;
         }
 
+        /// <summary>
+        /// Pour prendre en compte les input clavier uniquement.
+        /// </summary>
+        /// <param name="oldKbState"></param>
+        /// <returns></returns>
         public static List<InputType> DefineInputs(ref KeyboardState oldKbState) //TODO devrait y en avoir 2, un pour les NPC, un pour joueur avec entrée clavier
         {
             List<InputType> inputs = new List<InputType>();
@@ -37,15 +62,15 @@ namespace Inventaire.Engine
                 inputs.Add(InputType.MOVE_LEFT);
                 Console.Write("input move left");
             }
-            if (newKbState.IsKeyDown(Keys.Up)) //TODO valable que pour des input uniques
+            if (newKbState.IsKeyDown(Keys.Up) && newKbState != oldKbState) 
             { //mettre à part les conditions à rallonge?
-                inputs.Add(InputType.UP);
-                Console.Write("input fly");
+                inputs.Add(InputType.SINGLE_UP);
+                Console.Write("input single up");
             }
-            if (newKbState.IsKeyDown(Keys.Down)) //TODO valable que pour des input uniques
+            if (newKbState.IsKeyDown(Keys.Down) && newKbState != oldKbState) 
             { //mettre à part les conditions à rallonge?
-                inputs.Add(InputType.DOWN);
-                Console.Write("input fly");
+                inputs.Add(InputType.SINGLE_DOWN);
+                Console.Write("input single down");
             }
 
 
@@ -90,14 +115,15 @@ namespace Inventaire.Engine
         ATTACK1,
         START,
         RETURNTOMENU,
-        UP,
-        DOWN,
+        SINGLE_UP,
+        SINGLE_DOWN,
         LEFT_CLICK
     }
     public enum InputMethod
     {
         KEYBOARD,
         MOUSE,
+        MOUSE_AND_KEYBOARD_,
         FILE,
         NONE
     }

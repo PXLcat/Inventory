@@ -37,7 +37,7 @@ namespace Inventaire.Engine
 
 #if DEBUG
             mG.spriteBatch = new SpriteBatch(mG.GraphicsDevice);
-            hitboxTexture = new Texture2D(this.mG.spriteBatch.GraphicsDevice, 1, 1);
+            hitboxTexture = new Texture2D(this.mG.spriteBatch.GraphicsDevice, 1, 1); // à terme, rendre la texture de hitbox générale?
             hitboxTexture.SetData(new[] { Color.Red });
 #endif
         }

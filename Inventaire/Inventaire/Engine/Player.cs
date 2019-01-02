@@ -39,6 +39,7 @@ namespace Inventaire.Engine
                 inventory = new List<Item>();
                 inventory.Add(new Item("Potion", "Rend X PV", itemNumber: 4));
                 inventory.Add(new Item("Brosse a dents", "A utiliser 3 fois par jour"));//TODO kenpixel prend pas les accents, trouver une police de base qui les fait (ou vérif dans le xml de la font que c'est les bons caractères de générés)
+                inventory.Add(new Item("Noix d'Hazel","Friandise pour lapinets. Rend 2PV."));
             }
             
 
