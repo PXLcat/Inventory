@@ -27,6 +27,8 @@ namespace Inventaire.Engine
         public Vector2 category1TitleOrigin;
         public Vector2 category2TitleOrigin;
 
+        public Button backToMenu;
+
         public int menuSelected; //1 = Items , 2 = Key Items 
 
         public Vector2 itemsListOrigin;
@@ -57,6 +59,8 @@ namespace Inventaire.Engine
             category2TitleOrigin = new Vector2(450,5);
 
             itemsListOrigin = new Vector2(50, 110);
+
+            //backToMenu = new Button(mainGame, new Rectangle(720,5,64,64),)
 
             menuSelected = 1;
             selectedInventory = player.inventory; //on passe le chemin ou la valeur? ça ira quand on modifiera le contenu de l'inventaire?

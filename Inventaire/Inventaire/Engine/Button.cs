@@ -42,6 +42,11 @@ namespace Inventaire.Engine
 #endif
         }
 
+        public Button()
+        {
+
+        }
+
 
         public void Update(List<InputType> playerInputs, Point cursorLocation)
         {//faudra vraiment apprendre à utiliser les eventHandler un jour
