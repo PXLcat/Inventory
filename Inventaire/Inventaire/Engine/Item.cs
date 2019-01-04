@@ -20,12 +20,13 @@ namespace Inventaire.Engine
         public int itemNumber;
         public ItemType itemType;
 
-        public Item(string name, string description, bool unique = false, int itemNumber = 1)
+        public Item(string name, string description, bool unique = false, int itemNumber = 1, ItemType itemType = ItemType.DEFAULT)
         {
             this.name = name;
             this.description = description;
             this.unique = unique;
             this.itemNumber = itemNumber;
+            this.itemType = itemType;
         }
 
         public void OnUse()

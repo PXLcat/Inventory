@@ -145,7 +145,7 @@ namespace Inventaire.Engine
             //______________________
 
             for (int i = 0; i < selectedInventory.Count; i++)
-            { 
+            { //Avoir une méthode draw dans Items?
 
                 if (selectedInventory[i].itemNumber>1)
                 {
@@ -153,6 +153,26 @@ namespace Inventaire.Engine
                         new Vector2(itemsListOrigin.X, itemsListOrigin.Y + i * 35 + (i > selectedItem ?30:0)), Color.Black);
                 }
                 Vector2 itemNamePosition = new Vector2(itemsListOrigin.X + 65, itemsListOrigin.Y + i * 35 + (i > selectedItem ? 30 : 0));
+                Vector2 itemIconPosition = new Vector2(itemNamePosition.X - 50, itemNamePosition.Y - 20);//new dans Draw
+
+                switch (selectedInventory[i].itemType)
+                {
+                    case ItemType.POTION:
+                        background.DrawTiled(mainGame.spriteBatch, 1, 1, itemIconPosition, 9, 13); //externaliser
+                        break;
+                    case ItemType.EQUIPEMENT:
+                        throw new NotImplementedException();
+                        break;
+                    case ItemType.KEY_ITEM:
+                        background.DrawTiled(mainGame.spriteBatch, 1, 1, itemIconPosition, 10, 13);
+                        break;
+                    case ItemType.DEFAULT:
+                        background.DrawTiled(mainGame.spriteBatch, 1, 1, itemIconPosition, 11, 13);
+                        break;
+                    default:
+                        break;
+                }
+
                 mainGame.spriteBatch.DrawString(Fonts.Instance.kenPixel16, selectedInventory[i].name, 
                     itemNamePosition, Color.Black); //new dans Draw pas bien
 
@@ -167,7 +187,7 @@ namespace Inventaire.Engine
 
 
 
-        background.DrawCursor(mainGame.spriteBatch, arrow, cursorLocation);
+            background.DrawCursor(mainGame.spriteBatch, arrow, cursorLocation);
 
             base.Draw(gameTime);
             mainGame.spriteBatch.End();

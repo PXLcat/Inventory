@@ -38,14 +38,14 @@ namespace Inventaire.Engine
             if (inventory == null)
             {
                 inventory = new List<Item>();
-                inventory.Add(new Item("Potion", "Rend X PV", itemNumber: 4)); //devrait être dans la Factory
+                inventory.Add(new Item("Potion", "Rend X PV", itemNumber: 4, itemType: ItemType.POTION)); //devrait être dans la Factory
                 inventory.Add(new Item("Brosse a dents", "A utiliser 3 fois par jour"));//TODO kenpixel prend pas les accents, trouver une police de base qui les fait (ou vérif dans le xml de la font que c'est les bons caractères de générés)
-                inventory.Add(new Item("Noix d'Hazel","Friandise pour lapinets. Rend 2PV."));
+                inventory.Add(new Item("Noix d'Hazel","Friandise pour lapinets. Rend 2PV.", itemType: ItemType.POTION));
             }
             if (keyItemsInventory == null)
             {
                 keyItemsInventory = new List<Item>();
-                keyItemsInventory.Add(new Item("Clef du terrier","Rouillee et pleine de terre"));
+                keyItemsInventory.Add(new Item("Clef du terrier","Rouillee et pleine de terre", itemType: ItemType.KEY_ITEM));
             }
 
 
