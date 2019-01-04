@@ -69,7 +69,7 @@ namespace Inventaire.Engine
         }
         public override void Update(GameTime gameTime)
         {
-            List<InputType> playerInputs = Input.DefineInputs(ref oldMouseState, ref oldKbState); //on mettrait pas ça dans la classe mère et le base.Update a ?
+            List<InputType> playerInputs = Input.DefineInputs(ref mainGame.gameState.oldMouseState, ref mainGame.gameState.oldKbState); //on mettrait pas ça dans la classe mère et le base.Update a ?
             if (playerInputs.Contains(InputType.SINGLE_DOWN))
             {
                 if (selectedItem == selectedInventory.Count-1)
@@ -166,11 +166,17 @@ namespace Inventaire.Engine
             }
 
 
- 
-            background.DrawCursor(mainGame.spriteBatch, arrow, cursorLocation);
+
+        background.DrawCursor(mainGame.spriteBatch, arrow, cursorLocation);
 
             base.Draw(gameTime);
             mainGame.spriteBatch.End();
+        }
+
+        public override void Unload()
+        {
+            Debug.WriteLine("Unload InventoryScene");
+            base.Unload();
         }
 
     }

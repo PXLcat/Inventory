@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,9 @@ namespace Inventaire.Engine
 {
     public class Gamestate
     {
+        public KeyboardState oldKbState;
+        public MouseState oldMouseState;
+
         public enum SceneType
         {
             MENU,

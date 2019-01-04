@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,9 +38,10 @@ namespace Inventaire.Engine
             if ((newMouseState.LeftButton == ButtonState.Pressed) && newMouseState != oldMouseState)
             {
                 inputs.Add(InputType.LEFT_CLICK);
-                Console.Write("input clic");
+                Debug.Write("input clic");
             }
-
+            
+            oldMouseState = newMouseState;
             return inputs;
         }
 
@@ -55,42 +57,42 @@ namespace Inventaire.Engine
             if (newKbState.IsKeyDown(Keys.Up)) //TODO mettre left et right sur un pied d'égalité
             {
                 inputs.Add(InputType.LEFT);
-                Console.Write("input up");
+                Debug.Write("input up");
             }
             if (newKbState.IsKeyDown(Keys.Down))
             {
                 inputs.Add(InputType.RIGHT);
-                Console.Write("input down");
+                Debug.Write("input down");
             }
             if (newKbState.IsKeyDown(Keys.Left)) //TODO mettre left et right sur un pied d'égalité
             {
                 inputs.Add(InputType.LEFT);
-                Console.Write("input left");
+                Debug.Write("input left");
             }
             if (newKbState.IsKeyDown(Keys.Right))
             {
                 inputs.Add(InputType.RIGHT);
-                Console.Write("input right");
+                Debug.Write("input right");
             }
             if (newKbState.IsKeyDown(Keys.Up) && newKbState != oldKbState)
             { //mettre à part les conditions à rallonge?
                 inputs.Add(InputType.SINGLE_UP);
-                Console.Write("input single up");
+                Debug.Write("input single up");
             }
             if (newKbState.IsKeyDown(Keys.Down) && newKbState != oldKbState)
             { //mettre à part les conditions à rallonge?
                 inputs.Add(InputType.SINGLE_DOWN);
-                Console.Write("input single down");
+                Debug.Write("input single down");
             }
             if (newKbState.IsKeyDown(Keys.Left) && newKbState != oldKbState) //TODO mettre left et right sur un pied d'égalité
             {
                 inputs.Add(InputType.SINGLE_LEFT);
-                Console.Write("input single left");
+                Debug.Write("input single left");
             }
             if (newKbState.IsKeyDown(Keys.Right) && newKbState != oldKbState)
             {
                 inputs.Add(InputType.SINGLE_RIGHT);
-                Console.Write("input single right");
+                Debug.Write("input single right");
             }
 
 
@@ -99,12 +101,12 @@ namespace Inventaire.Engine
             if (newKbState.IsKeyDown(Keys.Enter) && newKbState != oldKbState)
             {
                 inputs.Add(InputType.START);
-                Console.Write("input start (enter)");
+                Debug.Write("input start (enter)");
             }
             if (newKbState.IsKeyDown(Keys.Back) && newKbState != oldKbState)
             {
                 inputs.Add(InputType.RETURNTOMENU);
-                Console.Write("input returntomenu (backspace)");
+                Debug.Write("input returntomenu (backspace)");
             }
 
 

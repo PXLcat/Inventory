@@ -44,13 +44,13 @@ namespace Inventaire.Engine
 
         public override void Unload()
         {
-            Debug.WriteLine("Unload TestScene");
+            Debug.WriteLine("Unload MenuScene");
             base.Unload();
         }
 
         public override void Update(GameTime gameTime)
         {
-            List<InputType> playerInputs = Input.DefineInputs(ref oldMouseState,ref oldKbState); //on mettrait pas ça dans la classe mère et le base.Update avant ?
+            List<InputType> playerInputs = Input.DefineInputs(ref mainGame.gameState.oldMouseState,ref mainGame.gameState.oldKbState); //on mettrait pas ça dans la classe mère et le base.Update avant ?
 
             cursorLocation = Mouse.GetState().Position;
             foreach (Button button in menuDroite)

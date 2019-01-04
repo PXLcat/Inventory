@@ -13,8 +13,7 @@ namespace Inventaire.Engine
     abstract public class Scene
     {
         protected MainGame mainGame;
-        public KeyboardState oldKbState;
-        public MouseState oldMouseState;
+
         public int windowWidth;
         public int windowHeight;
         //public Player player;
