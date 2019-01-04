@@ -60,7 +60,7 @@ namespace Inventaire.Engine
 
             itemsListOrigin = new Vector2(50, 110);
 
-            //backToMenu = new Button(mainGame, new Rectangle(720,5,64,64),)
+            backToMenu = new Button(mainGame, new Rectangle(720, 5, 64, 64), background, 9, 10, Button.ButtonType.BACK_TO_MENU);
 
             menuSelected = 1;
             selectedInventory = player.inventory; //on passe le chemin ou la valeur? ça ira quand on modifiera le contenu de l'inventaire?
@@ -109,6 +109,8 @@ namespace Inventaire.Engine
             }
 
 
+            backToMenu.Update(playerInputs,cursorLocation); //faire une liste à terme si + de boutons
+
             cursorLocation = Mouse.GetState().Position;
 
             base.Update(gameTime);
@@ -132,6 +134,8 @@ namespace Inventaire.Engine
                 10, menuSelected == 2 ? selectedMenuOrigin.Y : nonSelectedMenuOrigin.Y);
             background.DrawTiled(mainGame.spriteBatch, 1, 1, new Vector2(category2TitleOrigin.X + background.tileWidth * 3, category2TitleOrigin.Y), 
                 11, menuSelected == 2 ? selectedMenuOrigin.Y : nonSelectedMenuOrigin.Y);
+
+            backToMenu.Draw(mainGame.spriteBatch);
             //redondance beurk dans les ternaires? demander à Gaët si il verrait ça autrement
 
             mainGame.spriteBatch.DrawString(Fonts.Instance.kenPixel16, "Items", new Vector2(category1TitleOrigin.X+20, category1TitleOrigin.Y+ (menuSelected == 1 ? 20:10)), Color.Black);
