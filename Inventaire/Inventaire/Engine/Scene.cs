@@ -17,6 +17,9 @@ namespace Inventaire.Engine
         public int windowWidth;
         public int windowHeight;
         //public Player player;
+        public Point cursorLocation; //plutôt dans le gamestate?
+
+        protected List<InputType> playerInputs;
 
         //____Affichage de la position de la souris____
         private MouseState mouse;
@@ -54,6 +57,29 @@ namespace Inventaire.Engine
         }
 
         public virtual void Update(GameTime gameTime) {
+
+            playerInputs = Input.DefineInputs(ref mainGame.gameState.oldMouseState, ref mainGame.gameState.oldKbState); 
+
+            if (Keyboard.GetState().GetPressedKeys().Length > 0)
+            {
+                if (mainGame.gameState.currentInputMethod != InputMethod.KEYBOARD)
+                {
+                    Debug.WriteLine("Current input method: keyboard");
+                }
+                    mainGame.gameState.currentInputMethod = InputMethod.KEYBOARD; //le clavier a la prio sur la souris (a déterminer si c'est ok)
+                
+            }
+            if (cursorLocation != Mouse.GetState().Position)
+            {
+                if (mainGame.gameState.currentInputMethod != InputMethod.MOUSE)
+                {
+                    Debug.WriteLine("Current input method: mouse");
+                }
+                mainGame.gameState.currentInputMethod = InputMethod.MOUSE;
+
+                cursorLocation = Mouse.GetState().Position;
+            }
+            
 
 #if DEBUG
             mouse = Mouse.GetState();

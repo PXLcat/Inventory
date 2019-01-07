@@ -15,7 +15,7 @@ namespace Inventaire.Engine
         private DrawTileFromSheet background;
         public Player player;
         public List<Button> menuDroite;
-        public Point cursorLocation;
+        
 
         public Cursor arrow;
         public Cursor hand;
@@ -50,15 +50,16 @@ namespace Inventaire.Engine
 
         public override void Update(GameTime gameTime)
         {
-            List<InputType> playerInputs = Input.DefineInputs(ref mainGame.gameState.oldMouseState,ref mainGame.gameState.oldKbState); //on mettrait pas ça dans la classe mère et le base.Update avant ?
+            base.Update(gameTime);
+            
 
-            cursorLocation = Mouse.GetState().Position;
+            
             foreach (Button button in menuDroite)
             {
                 button.Update(playerInputs, cursorLocation);
             }
 
-            base.Update(gameTime);
+
             
         }
 

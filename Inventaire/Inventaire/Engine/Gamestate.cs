@@ -9,6 +9,8 @@ namespace Inventaire.Engine
 {
     public class Gamestate
     {
+        public InputMethod currentInputMethod;
+
         public KeyboardState oldKbState;
         public MouseState oldMouseState;
 

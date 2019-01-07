@@ -128,8 +128,12 @@ namespace Inventaire.Engine
 
         public void OnHover()// ou sélection menu
         {
-            si input clavier
-                afficher curseur main
+            //if ()
+            //{
+
+            //}
+            //si input clavier
+            //    afficher curseur main
             throw new NotImplementedException();
         }
         public void Draw(SpriteBatch sb) //TODO la classe contient déjà un mainGame : plutôt utiliser celui là?

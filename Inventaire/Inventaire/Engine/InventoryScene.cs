@@ -16,8 +16,6 @@ namespace Inventaire.Engine
         public Player player;
         List<Item> selectedInventory;
 
-        public Point cursorLocation;
-
         public Cursor arrow;
         public Cursor hand;
 
@@ -69,7 +67,7 @@ namespace Inventaire.Engine
         }
         public override void Update(GameTime gameTime)
         {
-            List<InputType> playerInputs = Input.DefineInputs(ref mainGame.gameState.oldMouseState, ref mainGame.gameState.oldKbState); //on mettrait pas ça dans la classe mère et le base.Update a ?
+            base.Update(gameTime);
             if (playerInputs.Contains(InputType.SINGLE_DOWN))
             {
                 if (selectedItem == selectedInventory.Count-1)
@@ -113,7 +111,7 @@ namespace Inventaire.Engine
 
             cursorLocation = Mouse.GetState().Position;
 
-            base.Update(gameTime);
+            
         }
         public override void Draw(GameTime gameTime)
         {
