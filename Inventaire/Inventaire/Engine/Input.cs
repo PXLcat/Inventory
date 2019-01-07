@@ -100,8 +100,8 @@ namespace Inventaire.Engine
 
             if (newKbState.IsKeyDown(Keys.Enter) && newKbState != oldKbState)
             {
-                inputs.Add(InputType.START);
-                Debug.Write("input start (enter)");
+                inputs.Add(InputType.SINGLE_ENTER);
+                Debug.Write("input single enter");
             }
             if (newKbState.IsKeyDown(Keys.Back) && newKbState != oldKbState)
             {
@@ -142,7 +142,7 @@ namespace Inventaire.Engine
         SINGLE_RIGHT,
         JUMP, // fall n'est pas un "input"
         ATTACK1,
-        START,
+        SINGLE_ENTER,
         RETURNTOMENU,
         DO_NOTHING,
         RESET_POSE,

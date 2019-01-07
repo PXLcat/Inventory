@@ -17,7 +17,7 @@ namespace Inventaire.Engine
         public int windowWidth;
         public int windowHeight;
         //public Player player;
-        public Point cursorLocation; //plutôt dans le gamestate?
+        public Point cursorPosition; //plutôt dans le gamestate?
 
         protected List<InputType> playerInputs;
 
@@ -69,7 +69,7 @@ namespace Inventaire.Engine
                     mainGame.gameState.currentInputMethod = InputMethod.KEYBOARD; //le clavier a la prio sur la souris (a déterminer si c'est ok)
                 
             }
-            if (cursorLocation != Mouse.GetState().Position)
+            if (cursorPosition != Mouse.GetState().Position)
             {
                 if (mainGame.gameState.currentInputMethod != InputMethod.MOUSE)
                 {
@@ -77,7 +77,7 @@ namespace Inventaire.Engine
                 }
                 mainGame.gameState.currentInputMethod = InputMethod.MOUSE;
 
-                cursorLocation = Mouse.GetState().Position;
+                cursorPosition = Mouse.GetState().Position;
             }
             
 

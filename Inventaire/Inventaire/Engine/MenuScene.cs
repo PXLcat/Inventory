@@ -15,7 +15,9 @@ namespace Inventaire.Engine
         private DrawTileFromSheet background;
         public Player player;
         public List<Button> menuDroite;
-        
+        private int selectedMenuDroite;
+
+        private Point handCursorPosition;
 
         public Cursor arrow;
         public Cursor hand;
@@ -31,14 +33,19 @@ namespace Inventaire.Engine
             base.Load();
 
             background = new DrawTileFromSheet("UIpackSheet_transparent", 11, 19, 64, 64, 8); //à terme changer le compte des lignes/colonnes ?
-            arrow = new Cursor(4, 19, new Vector2(0, 0));
+            arrow = new Cursor(4, 19, Vector2.Zero);
+            hand = new Cursor(5, 13, Vector2.Zero);//pertinence d'être un curseur?
 
             player = Player.Instance;
             player.Load();
 
+            selectedMenuDroite = 0;
+
             menuDroite = new List<Button>();
             menuDroite.Add(new Button(mainGame, new Rectangle(600, 30, 170, 35),buttonType: Button.ButtonType.INVENTORY, label:"Items"));
             menuDroite.Add(new Button(mainGame, new Rectangle(600, 70, 170, 35), label: "Equipement")); //moche le décalage à la main?
+
+            handCursorPosition = Point.Zero; //TODO peut poser problème plus tard?
 
         }
 
@@ -51,15 +58,43 @@ namespace Inventaire.Engine
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            
 
-            
-            foreach (Button button in menuDroite)
+            if (playerInputs.Contains(InputType.SINGLE_DOWN))
             {
-                button.Update(playerInputs, cursorLocation);
+                if (selectedMenuDroite == menuDroite.Count - 1)
+                {
+                    selectedMenuDroite = 0;
+                }
+                else
+                {
+                    selectedMenuDroite++;
+                }
+            }
+            if (playerInputs.Contains(InputType.SINGLE_UP))//conflit si les deux à la fois?
+            {
+                if (selectedMenuDroite == 0)
+                {
+                    selectedMenuDroite = menuDroite.Count - 1;
+                }
+                else
+                {
+                    selectedMenuDroite--;
+                }
             }
 
+            handCursorPosition = new Point(menuDroite[selectedMenuDroite].ClickableZone.X-background.tileWidth,
+                menuDroite[selectedMenuDroite].ClickableZone.Y-5);//chiffre magique
 
+
+            foreach (Button button in menuDroite)
+            {
+                button.Update(playerInputs, cursorPosition);
+            }
+
+            if (playerInputs.Contains(InputType.SINGLE_ENTER))
+            {
+                menuDroite[selectedMenuDroite].OnClick();
+            }
             
         }
 
@@ -74,7 +109,15 @@ namespace Inventaire.Engine
             DrawCharactersSummaries(new Vector2(50,50)); //ATTENTION CALCULS
             DrawRightMenu(); //ATTENTION CALCULS
 
-            background.DrawCursor(mainGame.spriteBatch, arrow, cursorLocation);
+            if (mainGame.gameState.currentInputMethod == InputMethod.MOUSE)
+            {
+                background.DrawCursor(mainGame.spriteBatch, arrow, cursorPosition);
+            }
+            else if (mainGame.gameState.currentInputMethod == InputMethod.KEYBOARD)
+            {
+                background.DrawCursor(mainGame.spriteBatch, hand, handCursorPosition);
+            }
+
 
             base.Draw(gameTime);
 

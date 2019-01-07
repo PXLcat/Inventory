@@ -104,12 +104,12 @@ namespace Inventaire.Engine
                     selectedInventory = player.inventory;
                     selectedItem = 0;
                 }
-            }
+            }//TODO faudrait pas généraliser cette méthode?
 
 
-            backToMenu.Update(playerInputs,cursorLocation); //faire une liste à terme si + de boutons
+            backToMenu.Update(playerInputs,cursorPosition); //faire une liste à terme si + de boutons
 
-            cursorLocation = Mouse.GetState().Position;
+            cursorPosition = Mouse.GetState().Position;
 
             
         }
@@ -183,9 +183,11 @@ namespace Inventaire.Engine
                 }
             }
 
+            if (mainGame.gameState.currentInputMethod == InputMethod.MOUSE)
+            {
+                background.DrawCursor(mainGame.spriteBatch, arrow, cursorPosition);
+            }
 
-
-            background.DrawCursor(mainGame.spriteBatch, arrow, cursorLocation);
 
             base.Draw(gameTime);
             mainGame.spriteBatch.End();

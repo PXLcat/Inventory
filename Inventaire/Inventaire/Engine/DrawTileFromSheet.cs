@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Inventaire.Engine
 {
+    //un jour faudra faire des Draw avec argument optionnel (int zoom = 1) parce que vraiment agrandir les spritesheet c'est dégeulasse
     public class DrawTileFromSheet // n'a pas IDrawable. C'est une sheet unique dont on dessine des bouts, pas chaque élément qui est un objet drawable
     {
         private int spacing;
