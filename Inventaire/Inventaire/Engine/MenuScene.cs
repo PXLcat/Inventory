@@ -42,7 +42,7 @@ namespace Inventaire.Engine
             selectedMenuDroite = 0;
 
             menuDroite = new List<Button>();
-            menuDroite.Add(new Button(mainGame, new Rectangle(600, 30, 170, 35),buttonType: Button.ButtonType.INVENTORY, label:"Items"));
+            menuDroite.Add(new Button(mainGame, new Rectangle(600, 30, 170, 35),buttonType: Button.ButtonType.ITEMS, label:"Items"));
             menuDroite.Add(new Button(mainGame, new Rectangle(600, 70, 170, 35), label: "Equipement")); //moche le décalage à la main?
 
             handCursorPosition = Point.Zero; //TODO peut poser problème plus tard?

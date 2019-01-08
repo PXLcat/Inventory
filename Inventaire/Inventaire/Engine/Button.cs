@@ -46,6 +46,7 @@ namespace Inventaire.Engine
             ButtonType buttonType = ButtonType.NONE,  String label = null, SpriteFont font = null) //on part du principe que
         {                                                                                          //dans le cas d'un bouton la zone cliquable est de la même taille que la texture?
             ClickableZone = clickableZone;
+            this.buttonType = buttonType;
             this.textureButton = textureButton;
             this.label = label;
             this.font = font ?? Fonts.Instance.kenPixel16;
@@ -114,12 +115,14 @@ namespace Inventaire.Engine
                 case ButtonType.ITEMS:
                     mG.gameState.ChangeScene(Gamestate.SceneType.INVENTORY);
                     break;
-                case ButtonType.INVENTORY:
-                    break;
                 case ButtonType.NONE:
                     break;
                 case ButtonType.BACK_TO_MENU:
                     mG.gameState.ChangeScene(Gamestate.SceneType.MENU);
+                    break;
+                case ButtonType.CATEGORY1:
+                    break;
+                case ButtonType.CATEGORY2:
                     break;
                 default:
                     break;
@@ -175,10 +178,12 @@ namespace Inventaire.Engine
         //TODO : Draw Centered qui utiliserait Fronts.GetOffsetToCenterText
         public enum ButtonType
         {
+            NONE,
             ITEMS,
-            INVENTORY,
             BACK_TO_MENU,
-            NONE
+            CATEGORY1,
+            CATEGORY2
+            
         }
     }
 }

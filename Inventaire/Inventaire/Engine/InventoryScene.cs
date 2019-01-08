@@ -29,6 +29,8 @@ namespace Inventaire.Engine
 
         public int menuSelected; //1 = Items , 2 = Key Items 
 
+        public List<Button> categories;
+
         public Vector2 itemsListOrigin;
 
         public int selectedItem;
@@ -53,8 +55,11 @@ namespace Inventaire.Engine
             selectedMenuOrigin = new Point(9, 4);
             nonSelectedMenuOrigin = new Point(9, 3);
 
-            category1TitleOrigin = new Vector2(25,5);
+            category1TitleOrigin = new Vector2(25,5); //TODO enlever à terme, et faire que l'affichage sélectionné corresponde au onHover ou à un onSelected
             category2TitleOrigin = new Vector2(450,5);
+            categories = new List<Button>();
+            categories.Add(new Button(mainGame, new Rectangle(25, 5, 256, 64)));
+            categories.Add(new Button(mainGame, new Rectangle(450, 5, 256, 64)));
 
             itemsListOrigin = new Vector2(50, 110);
 
@@ -119,6 +124,12 @@ namespace Inventaire.Engine
 
             mainGame.spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null);
 
+            //boutons catégorie
+            foreach (Button category in categories)
+            {
+                category.Draw(mainGame.spriteBatch);
+            }
+
             background.DrawTiled(mainGame.spriteBatch, 1, 1, new Vector2(category1TitleOrigin.X, category1TitleOrigin.Y), //refaire ce bloc avec selectedInventory
                 9, menuSelected==1?selectedMenuOrigin.Y:nonSelectedMenuOrigin.Y);
             background.DrawTiled(mainGame.spriteBatch, 2, 1, new Vector2(category1TitleOrigin.X + background.tileWidth, category1TitleOrigin.Y), 
@@ -172,7 +183,7 @@ namespace Inventaire.Engine
                 }
 
                 mainGame.spriteBatch.DrawString(Fonts.Instance.kenPixel16, selectedInventory[i].name, 
-                    itemNamePosition, Color.Black); //new dans Draw pas bien
+                    itemNamePosition, Color.Black); 
 
                 if (selectedItem == i)
                 {
@@ -182,6 +193,8 @@ namespace Inventaire.Engine
                         new Vector2(itemsListOrigin.X + 100, itemsListOrigin.Y + i * 35 + 30), Color.Gray);
                 }
             }
+
+
 
             if (mainGame.gameState.currentInputMethod == InputMethod.MOUSE)
             {
