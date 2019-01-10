@@ -58,8 +58,8 @@ namespace Inventaire.Engine
             category1TitleOrigin = new Vector2(25,5); //TODO enlever à terme, et faire que l'affichage sélectionné corresponde au onHover ou à un onSelected
             category2TitleOrigin = new Vector2(450,5);
             categories = new List<Button>();
-            categories.Add(new Button(mainGame, new Rectangle(25, 5, 256, 64)));
-            categories.Add(new Button(mainGame, new Rectangle(450, 5, 256, 64)));
+            categories.Add(new Button(mainGame, new Rectangle(25, 5, 256, 64),buttonType: Button.ButtonType.CATEGORY1));
+            categories.Add(new Button(mainGame, new Rectangle(450, 5, 256, 64), buttonType: Button.ButtonType.CATEGORY2));
 
             itemsListOrigin = new Vector2(50, 110);
 
@@ -97,27 +97,51 @@ namespace Inventaire.Engine
             }
             if (playerInputs.Contains(InputType.SINGLE_RIGHT)|| playerInputs.Contains(InputType.SINGLE_LEFT))
             {
-                if (menuSelected == 1)
+                if (menuSelected == 1) //TODO voir à dégager cette variable et utiliser l'index de liste?
                 {
-                    menuSelected = 2;
-                    selectedInventory = player.keyItemsInventory;//un peu moche
-                    selectedItem = 0;
+                    switchCategory(2);
                 }
-                else
+                else if (menuSelected == 2)//attention portabilité si plus de catégories
                 {
-                    menuSelected = 1;
-                    selectedInventory = player.inventory;
-                    selectedItem = 0;
+                    switchCategory(1);
                 }
-            }//TODO faudrait pas généraliser cette méthode?
+            }
 
 
             backToMenu.Update(playerInputs,cursorPosition); //faire une liste à terme si + de boutons
+            foreach (Button categorie in categories)
+            {
+                categorie.Update(playerInputs, cursorPosition);
+                if (categories[0].isClicked)
+                {
+                    switchCategory(1); 
+                }
+                else if (categories[1].isClicked) //attention il y passe plusieurs fois, trouver autre chose que isClicked
+                {
+                    switchCategory(2);
+                }
+            }
 
             cursorPosition = Mouse.GetState().Position;
 
             
         }
+
+        private void switchCategory(int catNumber)
+        {
+            menuSelected = catNumber;
+            if (catNumber ==1)
+            {
+                selectedInventory = player.inventory;
+            }
+            else if (catNumber ==2)
+            {
+                selectedInventory = player.keyItemsInventory;//un peu moche
+            }
+
+            selectedItem = 0;
+        }
+
         public override void Draw(GameTime gameTime)
         {
             //___FOND________________
